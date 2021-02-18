@@ -1,0 +1,4 @@
+Simple Demo of AutoConfiguration.  We are going to create a "SpecialPrinter"
+and provide an AutoConfiguration for it.
+
+Look in the Javadoc for SpecialPrinterAutoConfig for more details.
