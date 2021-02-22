@@ -1,6 +1,6 @@
 package ttl.larku.app;
 
-import ttl.larku.domain.Course;
+import ttl.larku.dao.TheFactory;
 import ttl.larku.domain.Student;
 import ttl.larku.service.CourseService;
 import ttl.larku.service.StudentService;
@@ -13,37 +13,27 @@ public class RegistrationApp {
 
     public static void main(String[] args) {
         //primeAndPrintBoth();
-        postRequestToAddAStudent();
-        getRequestForAllStudents();
+        RegistrationApp ra = new RegistrationApp();
+        ra.postRequestToAddAStudent();
+        ra.getRequestForAllStudents();
     }
 
+    //    private StudentService studentService = new StudentService();
+    private StudentService studentService = TheFactory.getStudentService();
 
-    public static void postRequestToAddAStudent() {
-        StudentService ss = new StudentService();
-        ss.createStudent("New One", "282 484 9944", Student.Status.FULL_TIME);
+    public void postRequestToAddAStudent() {
+//        StudentService studentService = new StudentService();
+        studentService.createStudent("New One", "282 484 9944", Student.Status.FULL_TIME);
 
-        List<Student> students = ss.getAllStudents();
+        List<Student> students = studentService.getAllStudents();
         students.forEach(System.out::println);
     }
 
-    public static void getRequestForAllStudents() {
-        StudentService ss = new StudentService();
-        List<Student> students = ss.getAllStudents();
+    public void getRequestForAllStudents() {
+//        StudentService ss = new StudentService();
+        List<Student> students = studentService.getAllStudents();
         System.out.println("All Students: " + students.size());
         students.forEach(System.out::println);
-    }
-
-    public static void primeAndPrintBoth() {
-        StudentService ss = new StudentService();
-        init(ss);
-        List<Student> students = ss.getAllStudents();
-        students.forEach(System.out::println);
-
-        CourseService cs = new CourseService();
-        init(cs);
-        List<Course> courses = cs.getAllCourses();
-        courses.forEach(System.out::println);
-
     }
 
     public static void init(StudentService ss) {

@@ -17,7 +17,7 @@
     -->
 
 
-    <bean id="studentDAO1" class="ttl.larku.dao.inmemory.StudentDAO"/>
+    <bean id="studentDAO1" class="ttl.larku.dao.StudentDAO"/>
 
     <bean id="studentDAO2" class="ttl.larku.dao.jpahibernate.JpaStudentDAO"/>
 

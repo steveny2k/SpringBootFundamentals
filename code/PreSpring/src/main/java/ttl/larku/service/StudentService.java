@@ -10,13 +10,16 @@ import java.util.List;
 
 public class StudentService {
 
+    private static int x = 10;
+
     List<String> stuff = new ArrayList<>();
 
     //private InMemoryStudentDAO studentDAO;
     private BaseDAO<Student> studentDAO;
 
     public StudentService() {
-        studentDAO = new InMemoryStudentDAO();
+        int i = 0;
+        //studentDAO = new InMemoryStudentDAO();
     }
 
     public Student createStudent(String name, String phoneNumber, Status status) {
