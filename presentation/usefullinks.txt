@@ -32,3 +32,4 @@ Cloud Patterns:
  - Not Spring Boot Centric, but a good talk on Cloud patterns.
    https://www.youtube.com/watch?v=HSVvp7tnKp4&list=PLRsbF2sD7JVp8vBso4ysmj-X0u6uGx1rH&index=43
 
+
