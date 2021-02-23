@@ -1,22 +1,27 @@
 package ttl.larku.service;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 import ttl.larku.dao.BaseDAO;
 import ttl.larku.domain.Student;
 
-import javax.annotation.Resource;
 import java.util.List;
 
-@Service
 public class StudentService {
 
-    @Resource(name = "studentDAO")
     private BaseDAO<Student> studentDAO;
 
-    public Student createStudent(String name) {
-        Student student = new Student(name);
+    public StudentService() {
+    }
+
+    private CourseService cs;
+
+    public Student createStudent(String name, String phoneNumber, Student.Status status) {
+        Student student = new Student(name, phoneNumber, status);
+        student = studentDAO.create(student);
+
+        return student;
+    }
+
+    public Student createStudent(Student student) {
         student = studentDAO.create(student);
 
         return student;
@@ -52,5 +57,13 @@ public class StudentService {
     public void clear() {
         studentDAO.deleteStore();
         studentDAO.createStore();
+    }
+
+    public CourseService getCs() {
+        return cs;
+    }
+
+    public void setCs(CourseService cs) {
+        this.cs = cs;
     }
 }
