@@ -1,10 +1,16 @@
 package ttl.larku.service;
 
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.PropertyAccessorFactory;
 import ttl.larku.dao.BaseDAO;
 import ttl.larku.domain.Track;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class TrackService {
 
@@ -82,6 +88,57 @@ public class TrackService {
     public void clear() {
         trackDAO.deleteStore();
         trackDAO.createStore();
+    }
+
+
+    public void updateTrackPartial(int id, Map<String, Object> props) {
+        Track track = trackDAO.get(id);
+        if (track != null) {
+            Class<?> clazz = Track.class;
+            Map<String, Method> methods = Arrays
+                    .asList(clazz.getMethods()).stream()
+                    .filter(m -> m.getName().startsWith("set"))
+                    .collect(Collectors.toMap(m -> m.getName(), m -> m));
+
+            props.forEach((name, value) -> {
+                if (!name.equals("id")) {
+                    String setMethodName = "set" + name.substring(0, 1).toUpperCase() + name.substring(1);
+                    Method m = methods.get(setMethodName);
+                    if (m != null) {
+                        Class<?>[] paramTypes = m.getParameterTypes();
+                        if (paramTypes.length == 1) {
+                            Object param = value;
+                            try {
+                                Class<?> pClass = paramTypes[0];
+                                //We only handle String properties for now.
+                                if (pClass.equals(String.class)) {
+                                    param = String.valueOf(value);
+                                }
+                                m.invoke(track, param);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    public void updateTrackPartialBeanWrapper(int id, Map<String, Object> props) {
+        Track track = trackDAO.get(id);
+        if (track != null) {
+
+            BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(track);
+            props.forEach((name, value) -> {
+                if (!name.equals("id")) {
+                    if (bw.isWritableProperty(name)) {
+                        Class<?> pClass = bw.getPropertyType(name);
+                        bw.setPropertyValue(name, bw.convertIfNecessary(value, pClass));
+                    }
+                }
+            });
+        }
     }
 
 }

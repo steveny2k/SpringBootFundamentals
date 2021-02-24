@@ -44,6 +44,10 @@ public class StudentRestControllerMvcTest {
 
     @BeforeEach
     public void init() {
+        for(String name: context.getBeanDefinitionNames()) {
+            System.out.println(name);
+        }
+        System.out.println(context.getBeanDefinitionCount() + " beans");
     }
 
     @Test

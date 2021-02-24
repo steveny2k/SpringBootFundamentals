@@ -9,6 +9,7 @@ import ttl.larku.service.TrackService;
 import javax.annotation.Resource;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 @RestController
@@ -138,4 +139,21 @@ public class TrackController {
         trackService.updateTrack(track);
         return ResponseEntity.noContent().build();
     }
+
+    /**
+     * Do partial updates.  The data comes to us as a map of property, value.
+     * We use reflection in trackService.updateStudentPartial to do the updates.
+     *
+     * @param id
+     * @param props
+     * @return
+     */
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateStudentPartial(@PathVariable("id") int id, @RequestBody Map<String, Object> props) {
+//        regService.getStudentService().updateStudentPartial(id, props);
+        trackService.updateTrackPartialBeanWrapper(id, props);
+        return ResponseEntity.noContent().build();
+
+    }
+
 }

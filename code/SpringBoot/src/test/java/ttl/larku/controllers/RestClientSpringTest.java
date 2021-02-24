@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import ttl.larku.controllers.rest.RestResult;
@@ -37,6 +38,9 @@ public class RestClientSpringTest {
     @Autowired
     private ObjectMapper mapper;
 
+    @Autowired
+    private ApplicationContext context;
+
     // GET with url parameters
     private String rootUrl;
     private String oneStudentUrl;
@@ -46,6 +50,11 @@ public class RestClientSpringTest {
         //rootUrl = "http://localhost:" + port + "/adminrest/student";
         rootUrl = "/adminrest/student";
         oneStudentUrl = rootUrl + "/{id}";
+
+        for(String name: context.getBeanDefinitionNames()) {
+            System.out.println(name);
+        }
+        System.out.println(context.getBeanDefinitionCount() + " beans");
     }
 
     @Test

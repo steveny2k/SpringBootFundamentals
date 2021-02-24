@@ -1,5 +1,6 @@
 package ttl.larku.exceptions;
 
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,7 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import ttl.larku.controllers.rest.RestResult;
@@ -22,9 +23,16 @@ import java.util.List;
 public class LastStopHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {Throwable.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     protected RestResultGeneric lastPortOfCall(Exception ex, WebRequest request) {
         RestResultGeneric rr = new RestResultGeneric("Unexpected Exception: " + ex);
         return rr;
+    }
+
+
+    @Override
+    protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        return super.handleTypeMismatch(ex, headers, status, request);
     }
 
     /**
@@ -43,6 +51,10 @@ public class LastStopHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(rr);
 
     }
+
+
+
+
 
     /**
      * Try sending an Accept of application/json, and change the controller
@@ -72,4 +84,5 @@ public class LastStopHandler extends ResponseEntityExceptionHandler {
         RestResult rr = new RestResult(errors);
         return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).body(rr);
     }
+
 }

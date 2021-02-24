@@ -21,8 +21,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.ServletRequestHandledEvent;
 import ttl.larku.domain.StudentCreatedEvent;
 import ttl.larku.service.StudentService;
-import ttl.larku.service.props.ConnectionService;
-import ttl.larku.service.props.ServiceThatWeDontOwn;
 
 import java.util.List;
 import java.util.Set;
@@ -40,13 +38,13 @@ public class SpringBootApp {
         app.addInitializers(new MyInitializer());
         ConfigurableApplicationContext context = app.run(args);
 
-        ConnectionService cs = context.getBean("connectionService", ConnectionService.class);
-        int result = cs.makeConnection();
-
-        System.out.println("Result is " + result);
-
-        ServiceThatWeDontOwn stwdo = context.getBean("serviceThatWeDontOwn", ServiceThatWeDontOwn.class);
-        System.out.println("stwdo: " + stwdo);
+//        ConnectionService cs = context.getBean("connectionService", ConnectionService.class);
+//        int result = cs.makeConnection();
+//
+//        System.out.println("Result is " + result);
+//
+//        ServiceThatWeDontOwn stwdo = context.getBean("serviceThatWeDontOwn", ServiceThatWeDontOwn.class);
+//        System.out.println("stwdo: " + stwdo);
 
 //        context.close();
     }

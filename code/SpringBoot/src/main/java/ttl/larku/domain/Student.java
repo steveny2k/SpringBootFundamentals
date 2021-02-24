@@ -2,6 +2,7 @@ package ttl.larku.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,10 @@ public class Student {
     ;
 
     private int id;
+
+    @NotNull
     private String name;
+
     private String phoneNumber;
 
     private Status status = Status.FULL_TIME;
@@ -27,7 +31,8 @@ public class Student {
     private static int nextId = 0;
 
     public Student() {
-        this("Unknown");
+//        this("Unknown");
+        this(null);
     }
 
     public Student(String name) {

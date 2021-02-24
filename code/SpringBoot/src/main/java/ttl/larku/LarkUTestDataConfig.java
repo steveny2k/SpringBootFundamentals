@@ -204,4 +204,10 @@ public class LarkUTestDataConfig {
         return cal.getTime();
     }
 
+    @Bean
+    public javax.validation.Validator localValidatorFactoryBean() {
+        return new LocalValidatorFactoryBean();
+    }
+
+
 }

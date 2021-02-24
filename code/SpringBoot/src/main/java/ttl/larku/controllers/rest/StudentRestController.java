@@ -1,6 +1,7 @@
 package ttl.larku.controllers.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,6 +23,10 @@ public class StudentRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getStudent(@PathVariable("id") int id) {
+        if(id < 0) {
+            throw new RuntimeException("Get a grip");
+        }
+
         Student s = studentService.getStudent(id);
         if (s == null) {
             return ResponseEntity.badRequest().body(new RestResult(RestResult.Status.Error,
@@ -31,7 +36,8 @@ public class StudentRestController {
     }
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT}, path = "/lowlevel")
-    public String getLow(HttpServletRequest request) throws IOException {
+    public String getLow(HttpServletRequest request, @RequestHeader HttpHeaders headers) throws IOException {
+        String acceptHeader = headers.get("accept").stream().findFirst().orElse(null);
         String method = request.getMethod();
         String result = "boo";
         if (method.equalsIgnoreCase("POST")) {
@@ -100,13 +106,37 @@ public class StudentRestController {
         studentService.updateStudent(student);
         return ResponseEntity.noContent().build();
     }
+
 }
 
-
+//    //For doing JSR 303 validation.  This requires the spring-boot-starter-validation in the pom file.
+//    //Also requires the qualifier with @Autowired, because apparently there are two validators in the file.
+//    //Or, of course, just use @Resource with the name.
+////    @Autowired
+////    @Qualifier("mvcValidator")
+//    @Resource(name = "mvcValidator")
+//    private Validator validator;
+//
+//    /**
+//     * Two ways to do Validation.
+//     * One is to call the validator manually, as on the
+//     * first line of this function.
+//     *
+//     * The other is to apply an @Valid annotation to the Student argument.  This will
+//     * make Spring automatically do the validation before it calls this function,
+//     * and return a MethodArgumentNotValid Exception on failure.  You can catch that
+//     * exception in a @RestControllerAdvice class.
+//     * See LastStopHandler for an example of @RestControllerAdvice.
+//     *
+//     * @param s
+//     * @param ucb
+//     * @param errors
+//     * @return
+//     */
 //    @PostMapping
 //    public ResponseEntity<?> createStudent(@RequestBody Student s,
 //                                           UriComponentsBuilder ucb, Errors errors) {
-////        validator.validate(s, errors);
+//        validator.validate(s, errors);
 //        if (errors.hasErrors()) {
 //            List<String> errmsgs = errors.getFieldErrors().stream()
 //                    .map(error -> "error:" + error.getField() + ": " + error.getDefaultMessage()

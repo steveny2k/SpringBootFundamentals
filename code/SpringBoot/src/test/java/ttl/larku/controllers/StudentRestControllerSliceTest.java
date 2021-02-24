@@ -51,7 +51,11 @@ public class StudentRestControllerSliceTest {
 
     @BeforeEach
     public void setup() {
-//        MockitoAnnotations.initMocks(this);
+
+        for(String name: context.getBeanDefinitionNames()) {
+            System.out.println(name);
+        }
+        System.out.println(context.getBeanDefinitionCount() + " beans");
 
         List<Student> students = Arrays.asList(new Student("Manoj", "282 929 9292", Student.Status.FULL_TIME),
                 new Student("Alice", "393 9393 030", Student.Status.HIBERNATING));
