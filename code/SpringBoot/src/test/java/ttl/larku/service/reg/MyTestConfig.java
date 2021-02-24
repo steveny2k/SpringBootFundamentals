@@ -1,10 +1,8 @@
 package ttl.larku.service.reg;
 
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.Import;
-import ttl.larku.LarkUConfig;
 import ttl.larku.SpringBootApp;
 
 /**
@@ -23,12 +21,10 @@ import ttl.larku.SpringBootApp;
  * but exactly which ones is not clear.  At that point, @SpringBootTest(webenvironment = NONE)
  * is probably your best bet.
  */
-@TestConfiguration
-//@ComponentScan(basePackages = {"ttl.larku"}) //, excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".* SpringBootApp.*"))
+@Configuration
+//@ComponentScan(basePackages = {"ttl.larku"})
+//@ComponentScan(basePackages = {"ttl.larku"}, excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*SpringBootApp.*"))
 //@ComponentScan(basePackages = {"ttl.larku"}, excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = SpringBootApplication.class))
 @ComponentScan(basePackages = {"ttl.larku"}, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SpringBootApp.class))
-@ComponentScan(basePackages = {"ttl.larku.service", "ttl.larku.dao"})
-@Import(LarkUConfig.class)
-//@EnableConfigurationProperties
 public class MyTestConfig{
 }

@@ -16,7 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 //@SpringBootTest(classes = {LarkUConfig.class, LarkUTestDataConfig.class, StudentService.class, ConnectionService.class, ConnectionServiceProperties.class})
-@SpringBootTest(classes = MyTestConfig.class)
+//@SpringBootTest(classes = {CourseService.class, InMemoryCourseDAO.class})
+@SpringBootTest(classes = {MyTestConfig.class})
+//@SpringBootTest(classes = {LarkUConfig.class, LarkUTestDataConfig.class, StudentService.class})
 public class CourseServiceTest {
 
     @Autowired

@@ -80,6 +80,16 @@ public class TrackController {
         return ResponseEntity.ok(tracks);
     }
 
+//    @GetMapping("/{id}")
+//    public void foo(@PathVariable("id") int id) {
+//
+//    }
+//
+//    @GetMapping("/{name}")
+//    public void foo(@PathVariable("name") String name) {
+//
+//    }
+
     /**
      * Numbers will come here
      * @param id

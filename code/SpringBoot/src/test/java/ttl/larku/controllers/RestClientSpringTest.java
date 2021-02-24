@@ -35,6 +35,7 @@ public class RestClientSpringTest {
 
     @Autowired
     private TestRestTemplate rt;
+
     @Autowired
     private ObjectMapper mapper;
 
