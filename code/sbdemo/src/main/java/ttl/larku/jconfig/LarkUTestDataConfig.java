@@ -1,8 +1,6 @@
 package ttl.larku.jconfig;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import ttl.larku.dao.BaseDAO;
 import ttl.larku.dao.inmemory.InMemoryCourseDAO;
 import ttl.larku.dao.inmemory.InMemoryStudentDAO;
@@ -14,8 +12,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
-@Profile("development")
+//@Configuration
+//@Profile("development")
 public class LarkUTestDataConfig {
 
     @Bean

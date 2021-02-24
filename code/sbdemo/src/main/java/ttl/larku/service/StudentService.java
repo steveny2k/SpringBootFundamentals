@@ -1,5 +1,6 @@
 package ttl.larku.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ttl.larku.dao.BaseDAO;
 import ttl.larku.domain.Student;
 
@@ -7,6 +8,7 @@ import java.util.List;
 
 public class StudentService {
 
+    @Autowired
     private BaseDAO<Student> studentDAO;
 
     public StudentService() {
