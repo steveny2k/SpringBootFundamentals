@@ -1,17 +1,32 @@
 package ttl.larku.domain;
 
+import javax.persistence.*;
+
+@Entity
 public class Student {
 	
 	public enum Status { 
-		FULL_TIME,
-		PART_TIME,
-		HIBERNATING
+		FULL_TIME(0),
+		PART_TIME(2),
+		HIBERNATING(3);
+		private int num;
+		Status(int num) {
+			this.num = num;
+		}
+		public int getNum() {
+			return num;
+		}
 	};
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	private String name;
 	private String phoneNumber;
-	
+
+//	@Enumerated(EnumType.STRING)
+	@Convert(converter = StatusConverter.class)
 	private Status status = Status.FULL_TIME;
 	
 	public Student() {
@@ -94,5 +109,18 @@ public class Student {
 			return false;
 		return true;
 	}
+}
 
+class StatusConverter implements AttributeConverter<Student.Status, String>
+{
+
+	@Override
+	public String convertToDatabaseColumn(Student.Status attribute) {
+		return attribute.toString();
+	}
+
+	@Override
+	public Student.Status convertToEntityAttribute(String dbData) {
+		return Student.Status.valueOf(dbData);
+	}
 }

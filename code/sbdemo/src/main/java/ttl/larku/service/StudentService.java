@@ -1,11 +1,13 @@
 package ttl.larku.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import ttl.larku.dao.BaseDAO;
 import ttl.larku.domain.Student;
 
 import java.util.List;
 
+@Transactional
 public class StudentService {
 
     @Autowired
@@ -18,9 +20,7 @@ public class StudentService {
 
     public Student createStudent(String name, String phoneNumber, Student.Status status) {
         Student student = new Student(name, phoneNumber, status);
-        student = studentDAO.create(student);
-
-        return student;
+        return createStudent(student);
     }
 
     public Student createStudent(Student student) {

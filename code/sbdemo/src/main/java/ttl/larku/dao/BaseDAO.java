@@ -18,7 +18,7 @@ public interface BaseDAO<T> {
 
     public List<T> getAll();
 
-    public void deleteStore();
+    public default void deleteStore() { throw new UnsupportedOperationException("Needs Implementing");}
 
-    public void createStore();
+    public default void createStore() { throw new UnsupportedOperationException("Needs Implementing");}
 }

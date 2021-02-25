@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import ttl.larku.specialprinter.SpecialPrinter;
 
@@ -23,6 +21,11 @@ public class SpecialPrinterUserApp {
         SpringApplication.run(SpecialPrinterUserApp.class, args);
     }
 
+    @Bean
+    public CommandLineRunner runIt() {
+        return (String ...args) -> System.out.println("runit");
+    }
+
     //If this bean is declared, then that's what Spring will use.
     //If not, then the default AutoConfigured Bean will get used.
 //    @Bean
@@ -34,20 +37,20 @@ public class SpecialPrinterUserApp {
 //    }
 }
 
-@Configuration
-class OtherConfig
-{
-    //If this bean is declared, then that's what Spring will use.
-    //If not, then the default AutoConfigured Bean will get used.
-    @Bean
-    public SpecialPrinter specialPrinter() {
-        SpecialPrinter sp = new SpecialPrinter();
-        sp.setPrefix("<");
-        sp.setSuffix(">");
-        return sp;
-    }
-
-}
+//@Configuration
+//class OtherConfig
+//{
+//    //If this bean is declared, then that's what Spring will use.
+//    //If not, then the default AutoConfigured Bean will get used.
+//    @Bean
+//    public SpecialPrinter specialPrinter() {
+//        SpecialPrinter sp = new SpecialPrinter();
+//        sp.setPrefix("<");
+//        sp.setSuffix(">");
+//        return sp;
+//    }
+//
+//}
 
 @Component
 class MyRunner implements CommandLineRunner
