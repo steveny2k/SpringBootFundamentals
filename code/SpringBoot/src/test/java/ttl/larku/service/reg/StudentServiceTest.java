@@ -5,9 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import ttl.larku.LarkUConfig;
+import ttl.larku.LarkUTestDataConfig;
+import ttl.larku.domain.ConnectionServiceProperties;
 import ttl.larku.domain.Student;
 import ttl.larku.domain.Student.Status;
 import ttl.larku.service.StudentService;
+import ttl.larku.service.props.ConnectionService;
 
 import javax.annotation.Resource;
 
@@ -32,17 +36,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  //be to declare the StudentService in LarkUConfig.
  ***********************/
 //@SpringBootTest(classes = {LarkUConfig.class, LarkUTestDataConfig.class, StudentService.class})
-@SpringBootTest(classes = {MyTestConfig.class})
+//@SpringBootTest(classes = {MyTestConfig.class})
 
 /*****************************
  * Finally, we can simply pull in the exact classes we need
  * for the test.  This will still pull in some other beans.
  * About 10 beans at this writing.
  **********/
-//@SpringBootTest(classes = {LarkUConfig.class, LarkUTestDataConfig.class, StudentService.class, ConnectionService.class, ConnectionServiceProperties.class})
-//@SpringBootTest(classes = {StudentService.class, InMemoryStudentDAO.class, ClassThatWeDontOwn.class})
-//@EnabledIf(expression = "#{environment.acceptsProfiles('development')}", loadContext = true)
-//@EnabledIf(expression = "#{'${spring.profiles.active}' == 'bory'}", loadContext = true)
+@SpringBootTest(classes = {LarkUConfig.class, LarkUTestDataConfig.class, StudentService.class,
+        ConnectionService.class, ConnectionServiceProperties.class})
 public class StudentServiceTest {
 
     private String name1 = "Bloke";

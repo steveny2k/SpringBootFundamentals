@@ -3,7 +3,7 @@ package ttl.larku.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ttl.larku.dao.repository.StudentRepo;
+import ttl.larku.dao.repository.SimpleStudentRepo;
 import ttl.larku.domain.Student;
 import ttl.larku.domain.Student.Status;
 
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class StudentRepoService implements StudentService {
 
     @Autowired
-    private StudentRepo studentDAO;
+    private SimpleStudentRepo studentDAO;
 
     @Override
     public Student createStudent(String name) {
@@ -68,11 +68,11 @@ public class StudentRepoService implements StudentService {
         return result;
     }
 
-    public StudentRepo getStudentDAO() {
+    public SimpleStudentRepo getStudentDAO() {
         return studentDAO;
     }
 
-    public void setStudentDAO(StudentRepo studentDAO) {
+    public void setStudentDAO(SimpleStudentRepo studentDAO) {
         this.studentDAO = studentDAO;
     }
 

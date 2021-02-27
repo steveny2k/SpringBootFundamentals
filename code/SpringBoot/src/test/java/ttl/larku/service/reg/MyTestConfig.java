@@ -2,6 +2,8 @@ package ttl.larku.service.reg;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
+import ttl.larku.SpringBootApp;
 
 /**
  * An Example of a Test Configuration.
@@ -20,9 +22,9 @@ import org.springframework.context.annotation.Configuration;
  * is probably your best bet.
  */
 @Configuration
-@ComponentScan(basePackages = {"ttl.larku"})
+//@ComponentScan(basePackages = {"ttl.larku"})
 //@ComponentScan(basePackages = {"ttl.larku"}, excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = ".*SpringBootApp.*"))
 //@ComponentScan(basePackages = {"ttl.larku"}, excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = SpringBootApplication.class))
-//@ComponentScan(basePackages = {"ttl.larku"}, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SpringBootApp.class))
+@ComponentScan(basePackages = {"ttl.larku"}, excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SpringBootApp.class))
 public class MyTestConfig{
 }

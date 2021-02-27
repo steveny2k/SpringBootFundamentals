@@ -18,6 +18,7 @@ import ttl.larku.domain.StudentPhoneSummary;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @DataJpaTest
@@ -118,9 +119,13 @@ public class StudentRepoTest {
         assertEquals(2, manojes.size());
     }
 
+    /**
+     * Test Paging.
+     */
     @Test
     public void testPaging() {
         // first add a bunch of student so we have something to page through
+        //Our Transaction will get rolled back at the end, so no harm done.
         for (int i = 0; i < 50; i++) {
             Student s = new Student("Fake #" + i);
             studentRepo.save(s);
@@ -128,15 +133,26 @@ public class StudentRepoTest {
 
         int currPage = 0;
         int size = 20;
+        int totalElements = 0;
+        //Set up sorting criteria
         Sort sort = Sort.by("name").descending();
-        Page<Student> page = studentRepo.findAll(PageRequest.of(currPage++, size, sort));
-        System.out.println("Number: " + page.getNumber() + ", numElements: " + page.getNumberOfElements());
-        page.forEach(System.out::println);
-        while (page.hasNext()) {
+        //Use the paging variation of the findAll method.
+        Page<Student> page = null;
+        do {
             page = studentRepo.findAll(PageRequest.of(currPage++, size, sort));
+            totalElements += page.getNumberOfElements();
             System.out.println("Number: " + page.getNumber() + ", numElements: " + page.getNumberOfElements());
             page.forEach(System.out::println);
-        }
+        }while(page.hasNext());
+
+        assertEquals(54, totalElements);
+        assertEquals(2, page.getNumber());
+    }
+
+    @Test
+    public void testProjectionPhoneSummaryById() {
+        StudentPhoneSummary phoneSummary = studentRepo.findPhoneSummaryById(2);
+        assertNotNull(phoneSummary);
     }
 
     @Test

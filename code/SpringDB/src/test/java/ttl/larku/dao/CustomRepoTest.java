@@ -58,7 +58,7 @@ public class CustomRepoTest {
      * The is testing the presence of @Nullable in the interface.
      * If a Null is returned on an @Nullable call, then the
      * null is returned.  If the call is not annotated with @Nullable,
-     * and EmptyAccessException should be thrown.  See the next
+     * an EmptyAccessException should be thrown.  See the next
      * Test.
      *
      * For this test to succeed a package-info.java file has to exist

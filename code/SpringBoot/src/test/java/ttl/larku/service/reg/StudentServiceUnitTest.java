@@ -23,6 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
 
+/**
+ * A straight ahead Unit test.  Only Mockito, no Spring
+ */
 //@ExtendWith(SpringExtension.class)
 @ExtendWith(MockitoExtension.class)
 public class StudentServiceUnitTest {
