@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 @Transactional
 //Uncomment next line to not expose this repo as a REST resource
-@RepositoryRestResource(exported = false)
+@RepositoryRestResource(exported = true)
 public interface ClassRepo extends JpaRepository<ScheduledClass, Integer> {
 
     public List<ScheduledClass> getByCourseCode(String code);
@@ -20,6 +20,4 @@ public interface ClassRepo extends JpaRepository<ScheduledClass, Integer> {
     @Query("select sc from ScheduledClass sc left join fetch sc.students where " +
             "sc.startDate = :startDate and sc.course.code = :code")
     public List<ScheduledClass> getByCourseCodeAndStartDateForStudents(String code, String startDate);
-
-
 }

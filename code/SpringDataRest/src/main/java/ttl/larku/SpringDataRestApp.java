@@ -3,13 +3,15 @@ package ttl.larku;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import ttl.larku.dao.repository.GlobalRepoEventHandler;
 
 @SpringBootApplication
 @EnableJpaRepositories
-public class SpringDBApp implements CommandLineRunner {
+public class SpringDataRestApp implements CommandLineRunner {
     public static void main(String[] args) {
-        SpringApplication springApp = new SpringApplication(SpringDBApp.class);
+        SpringApplication springApp = new SpringApplication(SpringDataRestApp.class);
 
         springApp.run(args);
     }
@@ -17,6 +19,11 @@ public class SpringDBApp implements CommandLineRunner {
     @Override
     public void run(String... args) {
         System.out.println("Init completed");
+    }
+
+    @Bean
+    GlobalRepoEventHandler globalRepoEventHandler() {
+        return new GlobalRepoEventHandler();
     }
 }
 
