@@ -25,7 +25,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -105,9 +104,7 @@ public class StudentRestControllerMvcTest {
                 mockMvc.perform(get(newStudentLocation)).andDo(MockMvcResultHandlers.print());
 
         // Check the returned data
-        getNewStudent.andExpect(jsonPath("$._links", notNullValue()))
-                .andExpect(jsonPath("$.name", notNullValue()))
-                .andExpect(jsonPath("$.name").value("Yogita"));
+        getNewStudent.andExpect(jsonPath("$.name").value("Yogita"));
 
     }
 
@@ -129,7 +126,6 @@ public class StudentRestControllerMvcTest {
 
 
         actions = actions
-                .andExpect(jsonPath("$._links", notNullValue()))
                 .andExpect(jsonPath("$.name")
                 .value(Matchers.containsString("Yogita")));
 
